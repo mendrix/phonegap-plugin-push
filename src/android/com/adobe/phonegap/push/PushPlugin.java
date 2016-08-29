@@ -135,6 +135,8 @@ public class PushPlugin extends CordovaPlugin implements PushConstants {
 
                     if (gCachedExtras != null) {
                         Log.v(LOG_TAG, "sending cached extras");
+                        //MendriX fix: coldstart always TRUE here
+                        gCachedExtras.putBoolean(COLDSTART, true);
                         sendExtras(gCachedExtras);
                         gCachedExtras = null;
                     }
