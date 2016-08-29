@@ -93,7 +93,8 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
             else {
                 Log.d(LOG_TAG, "background");
                 extras.putBoolean(FOREGROUND, false);
-                extras.putBoolean(COLDSTART, PushPlugin.isActive());
+                //Mendrix Fix: COLDSTART=true when NOT active
+                extras.putBoolean(COLDSTART, !PushPlugin.isActive());
 
                 showNotificationIfPossible(getApplicationContext(), extras);
             }
