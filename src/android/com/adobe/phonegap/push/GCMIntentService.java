@@ -91,11 +91,16 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
             }
             // if we are not in the foreground always send notification if the data has at least a message or title
             else {
-                Log.d(LOG_TAG, "background");
+                boolean startcold = !PushPlugin.isActive();
+                if (startcold) {
+                    Log.d(LOG_TAG, "background, coldstart");
+                }
+                else {
+                    Log.d(LOG_TAG, "background, no coldstart");
+                }
                 extras.putBoolean(FOREGROUND, false);
                 //Mendrix Fix: COLDSTART=true when NOT active
-                extras.putBoolean(COLDSTART, !PushPlugin.isActive());
-
+                extras.putBoolean(COLDSTART, startcold);
                 showNotificationIfPossible(getApplicationContext(), extras);
             }
         }
